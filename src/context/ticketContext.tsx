@@ -80,8 +80,7 @@ const TicketProvider = ({ children }: { children: React.ReactNode}) => {
       }
 
       const handleClick = (indx: number) => {
-        const newData = ticketData.find((item, index)=> indx === index )
-        console.log(newData)
+        const newData = ticketData.find((_item, index)=> indx === index )
         setForm({
             ...form,
             amount: newData?.ticketAmount?.toString() ?? "",
