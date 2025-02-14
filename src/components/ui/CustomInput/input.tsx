@@ -12,7 +12,7 @@ const Input = ({ placeholder, value, className, type, handleChange, name }: Form
   return (
     <div className={`relative inline-block rounded-[8px]`}>
       <input
-        className={`py-3 w-full px-4 border font-[400] rounded-[8px] text-[16px] outline-none focus:shadow-2xl ${className}`}
+        className={`py-3 w-[320px] md:w-full px-4 border font-[400] rounded-[8px] text-[16px] outline-none focus:shadow-2xl ${className}`}
         type={type}
         placeholder={placeholder}
         value={value}

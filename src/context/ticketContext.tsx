@@ -38,8 +38,8 @@ const TicketProvider = ({ children }: { children: React.ReactNode}) => {
         name: "",
         email: "",
         textarea: "",
-        amount: "",
-        type: "",
+        amount: "0",
+        type: selectedOption.value,
       })
 
       const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +82,10 @@ const TicketProvider = ({ children }: { children: React.ReactNode}) => {
       const handleClick = (indx: number) => {
         const newData = ticketData.find((item, index)=> indx === index )
         console.log(newData)
+        setForm({
+            ...form,
+            amount: newData?.ticketAmount?.toString() ?? "",
+        })
         setPick(indx)
       }
       

@@ -2,8 +2,8 @@ import React from "react";
 import Select, { SingleValue, MultiValue } from "react-select";
 
 export interface OptionType {
-  value: number;
-  label: number;
+  value: string;
+  label: string;
 }
 
 interface CustomSelectProps {

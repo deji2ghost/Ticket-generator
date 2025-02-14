@@ -20,7 +20,7 @@ const HeroSection = () => {
   } = UseTicketHook();
 
   return (
-    <div className="border border-[#197686] p-3 rounded-2xl">
+    <div className="border border-[#197686] p-3 rounded-2xl mb-3">
       {step === 1 ? (
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
@@ -40,21 +40,21 @@ const HeroSection = () => {
             <div className="h-[1px] w-full bg-[#07373F]"></div>
             <div>
               <p>Select ticket type:</p>
-              <div className="border border-[#07373F] bg-[07373F]">
+              <div className="border border-[#07373F] bg-[07373F] flex flex-col gap-4 p-4 rounded-md md:flex-row md:w-full">
                 {ticketData.map((item, index) => (
                   <div
                   key={index}
                     onClick={() => handleClick(index)}
                     className={`${
                       pick === index ? "bg-[#197686]" : "null"
-                    } border border-[#07373F] text-white rounded-sm flex items-start`}
+                    } border border-[#07373F] text-white rounded-sm flex flex-col-reverse items-start md:justify-between p-2 md:w-full`}
                   >
                     <div>
-                      <h1>{item.ticketName}</h1>
+                      <h1>{item.ticketName} Access</h1>
                       <p>{item.amountLeft} left</p>
                     </div>
                     <div>
-                      {item.ticketAmount === 0 ? "Free" : item.ticketAmount}
+                      {item.ticketAmount === "0" ? "Free" : item.ticketAmount}
                     </div>
                   </div>
                 ))}
@@ -72,15 +72,15 @@ const HeroSection = () => {
       ) : step === 2 ? (
         <div>
           <HeroHeader title="Attendee Details" subTitle={step} />
-          <div>
-            <div>
+          <div className="flex flex-col gap-3">
+            <div className="border border-[#0E464F] rounded-md p-4">
               <h1>Upload Profile Photo</h1>
-              <div className="bg-[#0E464F]">
+              <div className="bg-[#0E464F] h-[330px] w-[250px] md:mx-auto">
                 <input type="file" onChange={handleUpload} />
                 {imageUrl && <img src={imageUrl} alt="Uploaded" width={200} />}
               </div>
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
               <Label text="Enter your name" />
               <Input
                 handleChange={handleChange}
@@ -89,7 +89,7 @@ const HeroSection = () => {
                 value={form.name}
               />
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
               <Label text="Enter your email" />
               <Input
                 handleChange={handleChange}
@@ -98,7 +98,7 @@ const HeroSection = () => {
                 value={form.email}
               />
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
               <Label text="About the project" />
               <Input
                 handleChange={handleChange}
@@ -126,22 +126,22 @@ const HeroSection = () => {
               <img src={imageUrl} />
               <div className="border ">
                 <div className="flex flex-col items-center">
-                  <div className="flex items-center">
-                    <div className="w-[50%]">
+                  <div className="flex items-center w-full">
+                    <div className="w-[50%] flex border flex-col p-4">
                       <p>Enter Your Name</p>
                       <h1>{form.name}</h1>
                     </div>
-                    <div className="w-[50%]">
+                    <div className="w-[50%] flex border flex-col p-4">
                       <p>Enter Your Email</p>
                       <h1>{form.email}</h1>
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <div className="w-[50%]">
+                  <div className="flex items-center w-full">
+                    <div className="w-[100%] border flex flex-col p-4">
                       <p>Ticket Type</p>
                       <h1>{form.type}</h1>
                     </div>
-                    <div className="w-[50%]">
+                    <div className="w-[100%] border flex flex-col p-4">
                       <p>Ticket For</p>
                       <h1>{form.amount}</h1>
                     </div>
