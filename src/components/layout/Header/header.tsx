@@ -3,7 +3,7 @@ import logo from "../../../../public/logo.svg"
 
 const Header = () => {
   return (
-    <div className='border border-[#0E464F] flex items-center justify-between'>
+    <div className='border border-[#0E464F] flex items-center justify-between p-2 rounded-md mb-4'>
       <div className="flex items-center">
         <div className="flex items-center">
           <div className="border p-2 border-[#ffffff]"><img src={logo} /></div>

@@ -1,9 +1,9 @@
 
 
-const Button = ({text, className, handleClick}: {text: string, className: string, handleClick?: () => void}) => {
+const Button = ({text, className, disabled, handleClick}: {text: string, disabled?: boolean, className: string, handleClick?: () => void}) => {
   return (
     <div className="inline-block rounded-md">
-      <button onClick={handleClick} className={`${className} outline-none border-none`}>
+      <button disabled={disabled} onClick={handleClick} className={`${className} outline-none border-none`}>
         {text}
       </button>
     </div>
