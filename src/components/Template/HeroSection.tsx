@@ -20,11 +20,12 @@ const HeroSection = () => {
     errors,
   } = UseTicketHook();
 
-  
-
-
   return (
-    <div className="border border-[#197686] p-3 rounded-2xl mb-3 text-white">
+    <div
+      className={`${
+        step === 3 ? "border-none" : "border border-[#197686]"
+      } p-3 rounded-2xl mb-3 text-white`}
+    >
       {step === 1 ? (
         <div className="flex flex-col gap-5">
           <HeroHeader title="Ticket Selection" subTitle={step} />
@@ -124,37 +125,41 @@ const HeroSection = () => {
       ) : (
         <div>
           <HeroHeader title="Ready" subTitle={step} />
-          <div>
+          <div className="text-center mb-4">
             <h1>Your Ticket is Booked</h1>
             <h1>You can download or Check your email for a copy</h1>
           </div>
-          <div>
+          <div className=" border border-[#197686]  md:w-[40%] mx-auto p-4 rounded-lg">
             <div>
-              <div>
+              <div className="text-center flex flex-col gap-3 mb-3">
                 <h1>Techember Fest ”25</h1>
                 <p>📍 04 Rumens road, Ikoyi, Lagos</p>
                 <p>📅 March 15, 2025 | 7:00 PM</p>
               </div>
-              {imageUrl && <img src={imageUrl} />}
+              <div className="w-[200px] h-[200px] mx-auto mb-4">
+                {imageUrl && <img src={imageUrl} />}
+              </div>
               <div className="border ">
                 <div className="flex flex-col items-center">
-                  <div className="flex items-center w-full">
-                    <div className="w-[50%] flex border flex-col p-4">
-                      <p>Enter Your Name</p>
-                      <h1>{form.name}</h1>
+                  <div className="flex items-start w-full">
+                    <div className="w-[50%] h-full flex border-none flex-col p-4">
+                      <p className="text-[10px]">Enter Your Name</p>
+                      <h1 className="break-words">{form.name}</h1>{" "}
+                      
                     </div>
-                    <div className="w-[50%] flex border flex-col p-4">
-                      <p>Enter Your Email</p>
-                      <h1>{form.email}</h1>
+                    <div className="w-[50%] h-full flex border-l flex-col p-4">
+                      <p className="text-[10px]">Enter Your Email</p>
+                      <h1 className="break-words">{form.email}</h1>{" "}
+                      
                     </div>
                   </div>
                   <div className="flex items-center w-full">
                     <div className="w-[100%] border flex flex-col p-4">
-                      <p>Ticket Type</p>
+                      <p className="text-[10px]">Ticket Type</p>
                       <h1>{form.type}</h1>
                     </div>
                     <div className="w-[100%] border flex flex-col p-4">
-                      <p>Ticket For</p>
+                      <p className="text-[10px]">Ticket For</p>
                       <h1>{form.amount}</h1>
                     </div>
                   </div>
