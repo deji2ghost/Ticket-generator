@@ -17,56 +17,56 @@ const HeroSection = () => {
     imageUrl,
     handleChange,
     selectedOption,
+    errors,
   } = UseTicketHook();
 
+  
+
+
   return (
-    <div className="border border-[#197686] p-3 rounded-2xl mb-3">
+    <div className="border border-[#197686] p-3 rounded-2xl mb-3 text-white">
       {step === 1 ? (
         <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-2">
-            <HeroHeader title="Ticket Selection" subTitle={step} />
-            {/* <div className="border border-[#07373F] flex flex-col gap-3"> */}
-              <div className="border border-[#07373F] bg-[07373F] flex flex-col gap-3 p-4 rounded-lg">
-                <h1 className="text-[20px] font-[700] text-center">
-                  Techember Fest ”25
-                </h1>
-                <p className="text-[16px] font-[300] text-center">
-                  Join us for an unforgettable experience. Secure your spot now.
-                </p>
-                <p className="text-center">📍 Lagos</p>
-                <p className="text-center">March 15, 2025 | 7:00 PM</p>
-              </div>
-            {/* </div> */}
-            <div className="h-[1px] w-full bg-[#07373F]"></div>
-            <div>
-              <p>Select ticket type:</p>
-              <div className="border border-[#07373F] bg-[07373F] flex flex-col gap-4 p-4 rounded-md md:flex-row md:w-full">
-                {ticketData.map((item, index) => (
-                  <div
+          <HeroHeader title="Ticket Selection" subTitle={step} />
+          <div className="border border-[#07373F] bg-[07373F] flex flex-col gap-3 p-4 rounded-lg">
+            <h1 className="text-[20px] font-[700] text-center">
+              Techember Fest ”25
+            </h1>
+            <p className="text-[16px] font-[300] text-center">
+              Join us for an unforgettable experience. Secure your spot now.
+            </p>
+            <p className="text-center">📍 Lagos</p>
+            <p className="text-center">March 15, 2025 | 7:00 PM</p>
+          </div>
+          <div className="h-[1px] w-full bg-[#07373F]"></div>
+          <div>
+            <p>Select ticket type:</p>
+            <div className="border border-[#07373F] bg-[07373F] flex flex-col gap-4 p-4 rounded-md md:flex-row md:w-full">
+              {ticketData.map((item, index) => (
+                <div
                   key={index}
-                    onClick={() => handleClick(index)}
-                    className={`${
-                      pick === index ? "bg-[#197686]" : "null"
-                    } border border-[#07373F] text-white rounded-sm flex flex-col-reverse items-start md:justify-between p-2 md:w-full`}
-                  >
-                    <div>
-                      <h1>{item.ticketName} Access</h1>
-                      <p>{item.amountLeft} left</p>
-                    </div>
-                    <div>
-                      {item.ticketAmount === "0" ? "Free" : item.ticketAmount}
-                    </div>
+                  onClick={() => handleClick(index)}
+                  className={`${
+                    pick === index ? "bg-[#197686]" : ""
+                  } border border-[#07373F] text-white rounded-sm flex flex-col-reverse items-start md:justify-between p-2 md:w-full`}
+                >
+                  <div>
+                    <h1>{item.ticketName} Access</h1>
+                    <p>{item.amountLeft} left</p>
                   </div>
-                ))}
-              </div>
+                  <div>
+                    {item.ticketAmount === "0" ? "Free" : item.ticketAmount}
+                  </div>
+                </div>
+              ))}
             </div>
-            <div>
-              <CustomSelect
-                selectedOption={selectedOption}
-                handleChange={(selected) => handleSelect(selected)}
-                options={Options}
-              />
-            </div>
+          </div>
+          <div>
+            <CustomSelect
+              selectedOption={selectedOption}
+              handleChange={(selected) => handleSelect(selected)}
+              options={Options}
+            />
           </div>
         </div>
       ) : step === 2 ? (
@@ -78,6 +78,9 @@ const HeroSection = () => {
               <div className="bg-[#0E464F] h-[330px] w-[250px] md:mx-auto">
                 <input type="file" onChange={handleUpload} />
                 {imageUrl && <img src={imageUrl} alt="Uploaded" width={200} />}
+                {errors.imageUrl && (
+                  <p className="text-red-500 text-sm">{errors.imageUrl}</p>
+                )}
               </div>
             </div>
             <div className="flex flex-col gap-1">
@@ -88,6 +91,9 @@ const HeroSection = () => {
                 name="name"
                 value={form.name}
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name}</p>
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <Label text="Enter your email" />
@@ -97,6 +103,9 @@ const HeroSection = () => {
                 name="email"
                 value={form.email}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email}</p>
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <Label text="About the project" />
@@ -106,6 +115,9 @@ const HeroSection = () => {
                 name="textarea"
                 value={form.textarea}
               />
+              {errors.textarea && (
+                <p className="text-red-500 text-sm">{errors.textarea}</p>
+              )}
             </div>
           </div>
         </div>
@@ -123,7 +135,7 @@ const HeroSection = () => {
                 <p>📍 04 Rumens road, Ikoyi, Lagos</p>
                 <p>📅 March 15, 2025 | 7:00 PM</p>
               </div>
-              <img src={imageUrl} />
+              {imageUrl && <img src={imageUrl} />}
               <div className="border ">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center w-full">
