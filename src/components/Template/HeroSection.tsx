@@ -78,7 +78,7 @@ const HeroSection = () => {
               <h1>Upload Profile Photo</h1>
               <div className="bg-[#0E464F] h-[330px] w-[250px] md:mx-auto">
                 <input type="file" onChange={handleUpload} />
-                {imageUrl && <img src={imageUrl} alt="Uploaded" width={200} />}
+                {imageUrl && <img src={form.imageUrl} alt="Uploaded" width={200} />}
                 {errors.imageUrl && (
                   <p className="text-red-500 text-sm">{errors.imageUrl}</p>
                 )}
@@ -137,7 +137,7 @@ const HeroSection = () => {
                 <p>📅 March 15, 2025 | 7:00 PM</p>
               </div>
               <div className="w-[200px] h-[200px] mx-auto mb-4">
-                {imageUrl && <img src={imageUrl} />}
+                {imageUrl && <img src={form.imageUrl} />}
               </div>
               <div className="border ">
                 <div className="flex flex-col items-center">

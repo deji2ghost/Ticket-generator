@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { OptionType } from "../components/ui/CustomSelect/Select";
@@ -43,24 +44,56 @@ export interface formProps {
   textarea: string;
   amount: string;
   type: string;
+  imageUrl: string;
 }
 const TicketContext = createContext<undefined | TicketProps>(undefined);
 
 const TicketProvider = ({ children }: { children: React.ReactNode }) => {
+  
   const [step, setStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState<OptionType>(Options[0]);
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
   const [pick, setPick] = useState<null | number>(null);
   const [isFormValid, setIsFormValid] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    textarea: "",
-    amount: "0",
-    type: selectedOption.value,
+  const [form, setForm] = useState<formProps>(() => {
+    if (typeof window !== "undefined") {
+      const storedForm = localStorage.getItem("formData");
+      return storedForm
+        ? JSON.parse(storedForm)
+        : {
+            name: "",
+            email: "",
+            textarea: "",
+            amount: "0",
+            type: Options[0].value,
+            imageUrl: "",
+          };
+    }
+    return {
+      name: "",
+      email: "",
+      textarea: "",
+      amount: "0",
+      type: Options[0].value,
+      imageUrl: "",
+    };
   });
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedPick = localStorage.getItem("ticketPick");
+      if (storedPick !== null) {
+        setPick(parseInt(storedPick));
+      }
+    }
+  }, []);
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+      localStorage.setItem("formData", JSON.stringify(form));
+
+  }, [form, step]);
 
   const validateForm = () => {
     console.log("clicked");
@@ -92,6 +125,11 @@ const TicketProvider = ({ children }: { children: React.ReactNode }) => {
 
     const data = await response.json();
     setImageUrl(data.secure_url);
+    setForm({
+      ...form,
+      imageUrl: data.secure_url,
+    });
+    localStorage.setItem("formData", JSON.stringify(form));
 
     setErrors((prevErrors) => {
         const newErrors = { ...prevErrors };
@@ -109,6 +147,11 @@ const TicketProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     setSelectedOption(selected);
+    setForm({
+      ...form,
+      type: selected.value,
+    });
+    localStorage.setItem("formData", JSON.stringify(form));
   };
 
   const handleChange = (e: { target: { value: string; name: string } }) => {
@@ -133,6 +176,7 @@ const TicketProvider = ({ children }: { children: React.ReactNode }) => {
       ...form,
       amount: newData?.ticketAmount?.toString() ?? "",
     });
+    localStorage.setItem("formData", JSON.stringify(form));
     setPick(indx);
   };
 

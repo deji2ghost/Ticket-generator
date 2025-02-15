@@ -17,6 +17,13 @@ function App() {
       if (!isFormValid) return;
     }
 
+    if (step === 3) {
+      localStorage.removeItem("formData");
+      alert("Your ticket was generated")
+      setStep(1)
+      return
+    }
+
     setStep(step + 1)
   }
 
@@ -31,16 +38,16 @@ function App() {
       <HeroSection />
       <footer className="flex flex-col gap-1 md:flex-row-reverse md:w-full md:justify-between">
         <Button
-          disabled={step === 3 || (step === 1 && pick === null)}
+          disabled={(step === 1 && pick === null)}
           handleClick={handleFoward}
           className="w-full md:w-[480px] p-2 border-none rounded-md bg-[#24A0B5] text-[#fff]"
-          text="Next"
+          text={step === 1 ? "Next" : step === 2 ? "Get My Free Ticket" : "Download Ticket"}
         />
         <Button
           disabled={step === 1}
           handleClick={handleBackward}
           className="w-full md:w-[480px] p-2 rounded-md border border-[#24A0B5] text-[#24A0B5]"
-          text="Cancel"
+          text={step === 1 ? "Cancel" : step === 2 ? "Back" : "Book Another Ticket"}
         />
       </footer>
     </div>
